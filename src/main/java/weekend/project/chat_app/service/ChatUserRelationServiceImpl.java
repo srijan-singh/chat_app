@@ -3,12 +3,8 @@ package weekend.project.chat_app.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
-import javax.persistence.NonUniqueResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.entity.ChatUserRelation;

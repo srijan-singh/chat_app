@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import weekend.project.chat_app.entity.ChatRooms;
-import weekend.project.chat_app.entity.ChatUserRelation;
-import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.service.ChatUserRelationService;
 import weekend.project.chat_app.template.ChatRoomTemplate;
 import weekend.project.chat_app.template.ChatRoomUserTemplate;
