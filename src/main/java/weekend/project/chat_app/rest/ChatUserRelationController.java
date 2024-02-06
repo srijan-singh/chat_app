@@ -13,7 +13,9 @@ import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.entity.ChatUserRelation;
 import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.service.ChatUserRelationService;
+import weekend.project.chat_app.template.ChatRoomTemplate;
 import weekend.project.chat_app.template.ChatRoomUserTemplate;
+import weekend.project.chat_app.template.UserTemplate;
 
 @RestController
 public class ChatUserRelationController {
@@ -27,12 +29,12 @@ public class ChatUserRelationController {
     }
 
     @GetMapping(value = "chat_room/users/{chatID}", produces = "application/json")
-    public List<Users> getUsersByChatID(@PathVariable String chatID){
+    public List<UserTemplate> getUsersByChatID(@PathVariable String chatID){
         return chatUserRelationService.getUsersByChatID(chatID);
     }
     
     @GetMapping(value = "users/chat_room/{userID}", produces = "application/json")
-    public List<ChatRooms> getChatRoomsByUserID(@PathVariable String userID){
+    public List<ChatRoomTemplate> getChatRoomsByUserID(@PathVariable String userID){
         return chatUserRelationService.getChatRoomsByUserID(userID);
     }
 

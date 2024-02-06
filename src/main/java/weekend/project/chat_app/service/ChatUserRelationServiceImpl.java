@@ -12,7 +12,9 @@ import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.repo.ChatRoomRepo;
 import weekend.project.chat_app.repo.ChatUserRelationRepo;
 import weekend.project.chat_app.repo.UserRepo;
+import weekend.project.chat_app.template.ChatRoomTemplate;
 import weekend.project.chat_app.template.ChatRoomUserTemplate;
+import weekend.project.chat_app.template.UserTemplate;
 
 @Repository
 public class ChatUserRelationServiceImpl implements ChatUserRelationService {
@@ -47,26 +49,32 @@ public class ChatUserRelationServiceImpl implements ChatUserRelationService {
     }
 
     @Override
-    public List<ChatRooms> getChatRoomsByUserID(String userID) {
+    public List<ChatRoomTemplate> getChatRoomsByUserID(String userID) {
         List<ChatUserRelation> chatUserRelations = chatUserRelationRepo.findByUser(userRepo.findById(userID));
     
-        List<ChatRooms> chatRooms = new ArrayList<>();
+        List<ChatRoomTemplate> chatRooms = new ArrayList<>();
         
         for (ChatUserRelation relation : chatUserRelations) {
-            chatRooms.add(relation.getChatRoom());
+
+            ChatRoomTemplate chatRoom = new ChatRoomTemplate(relation.getChatRoom().getChatID(), relation.getChatRoom().getTimestamp());
+
+            chatRooms.add(chatRoom);
         }
         
         return chatRooms;
     }
 
     @Override
-    public List<Users> getUsersByChatID(String chatID) {
+    public List<UserTemplate> getUsersByChatID(String chatID) {
         List<ChatUserRelation> chatUserRelations = chatUserRelationRepo.findByChatRoom(chatRoomRepo.findById(chatID));
 
-        List<Users> users = new ArrayList<>();
+        List<UserTemplate> users = new ArrayList<>();
 
         for (ChatUserRelation relation : chatUserRelations) {
-            users.add(relation.getUser());
+
+            UserTemplate user = new UserTemplate(relation.getUser().getUserID());
+
+            users.add(user);
         }
 
         return users;
