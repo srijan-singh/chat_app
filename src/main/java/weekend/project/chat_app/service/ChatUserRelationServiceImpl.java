@@ -12,6 +12,7 @@ import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.repo.ChatRoomRepo;
 import weekend.project.chat_app.repo.ChatUserRelationRepo;
 import weekend.project.chat_app.repo.UserRepo;
+import weekend.project.chat_app.template.ChatRoomUserTemplate;
 
 @Repository
 public class ChatUserRelationServiceImpl implements ChatUserRelationService {
@@ -26,10 +27,10 @@ public class ChatUserRelationServiceImpl implements ChatUserRelationService {
     ChatUserRelationRepo chatUserRelationRepo;
 
     @Override
-    public boolean addUserToChatRoom(String userID, String chatID) {
+    public boolean addUserToChatRoom(ChatRoomUserTemplate chatRoomUserTemplate) {
 
-        Users user = userRepo.findByUserID(userID);
-        ChatRooms chatRoom = chatRoomRepo.findById(chatID).orElse(null);
+        Users user = userRepo.findByUserID(chatRoomUserTemplate.getUserID());
+        ChatRooms chatRoom = chatRoomRepo.findById(chatRoomUserTemplate.getChatID()).orElse(null);
 
         if (user == null || chatRoom == null) {
             return false;

@@ -13,6 +13,7 @@ import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.entity.ChatUserRelation;
 import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.service.ChatUserRelationService;
+import weekend.project.chat_app.template.ChatRoomUserTemplate;
 
 @RestController
 public class ChatUserRelationController {
@@ -20,28 +21,9 @@ public class ChatUserRelationController {
     @Autowired
     private ChatUserRelationService chatUserRelationService;
 
-    @GetMapping(value = "chat_rooms/{chatID}/add/{userID}", consumes = "application/json")
-    public boolean addUserToChatRoom(@PathVariable String chatID, @PathVariable String userID){
-        try {
-
-            System.out.println("user:"+userID);
-            System.out.println(chatID);
-            
-            // Rest of your code
-            System.out.println("User added to chat room successfully!");
-            return chatUserRelationService.addUserToChatRoom(userID, chatID);
-
-            
-        } catch (NullPointerException e) {
-            // Handle the null pointer exception
-            System.out.println("Error: User or ChatRoom is null!");
-            return false;
-        } catch (Exception e) {
-            // Handle other exceptions
-            System.out.println("Error: " + e.getMessage());
-            return false;
-        }
-        
+    @PostMapping(value = "chat_rooms/add/user", consumes = "application/json")
+    public boolean addUserToChatRoom(@RequestBody ChatRoomUserTemplate chatRoomUserTemplate){
+        return chatUserRelationService.addUserToChatRoom(chatRoomUserTemplate);
     }
 
     @GetMapping(value = "chat_room/users/{chatID}", produces = "application/json")
