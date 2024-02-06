@@ -1,5 +1,6 @@
 package weekend.project.chat_app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.repo.UserRepo;
+import weekend.project.chat_app.template.UserTemplate;
 
 @Repository
 public class UserServiceImpl implements UserService {
@@ -28,16 +30,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users login(String userID, String password) {
+    public UserTemplate login(String userID, String password) {
        if(userRepo.findByUserIDAndPassword(userID, password) != null){
-            return userRepo.findByUserID(userID);
+            UserTemplate user = new UserTemplate(userID);
+            return user;
        }
        return null;
     }
 
     @Override
-    public List<Users> showAll() {
-        return userRepo.findAll();
+    public List<UserTemplate> showAll() {
+
+        List<UserTemplate> users = new ArrayList<>();
+
+        for(Users user : userRepo.findAll()){
+            users.add(new UserTemplate(user.getUserID()));
+        }
+
+        return users;
     }
 
 }

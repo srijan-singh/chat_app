@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import weekend.project.chat_app.entity.Users;
 import weekend.project.chat_app.service.UserService;
+import weekend.project.chat_app.template.UserTemplate;
 
 @RestController
 public class UserController {
@@ -24,13 +25,13 @@ public class UserController {
     }
 
     @PostMapping(value = "user/login", consumes="application/json", produces = "application/json")
-    public Users loginUser(@RequestBody Users user){
+    public UserTemplate loginUser(@RequestBody Users user){
         System.out.println(userService.login(user.getUserID(), user.getPassword()));
         return userService.login(user.getUserID(), user.getPassword());
     }
 
     @GetMapping(value = "user/badpractice", produces = "application/json")
-    public List<Users> showAll(){
+    public List<UserTemplate> showAll(){
         return userService.showAll();
     }
     

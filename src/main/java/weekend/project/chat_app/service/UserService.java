@@ -3,6 +3,7 @@ package weekend.project.chat_app.service;
 import java.util.List;
 
 import weekend.project.chat_app.entity.Users;
+import weekend.project.chat_app.template.UserTemplate;
 
 public interface UserService {
 
@@ -10,10 +11,10 @@ public interface UserService {
     boolean registration(Users user);
 
     // User login
-    Users login(String userID, String password);
+    UserTemplate login(String userID, String password);
 
     // ShowAll
-    List<Users> showAll();
+    List<UserTemplate> showAll();
 
 
 }
