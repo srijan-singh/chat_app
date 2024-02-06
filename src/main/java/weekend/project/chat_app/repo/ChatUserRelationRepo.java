@@ -11,8 +11,9 @@ import weekend.project.chat_app.entity.Users;
 
 public interface ChatUserRelationRepo extends JpaRepository<ChatUserRelation, Date> {
 
+    ChatUserRelation findByChatRoomAndUser(ChatRooms chatRoom, Users user);
 
-    List<ChatUserRelation> findByChatRoom(Optional<ChatRooms> optional);
+    List<ChatUserRelation> findByChatRoom(Optional<ChatRooms> chatRoom);
     
     List<ChatUserRelation> findByUser(Optional<Users> user);
 }

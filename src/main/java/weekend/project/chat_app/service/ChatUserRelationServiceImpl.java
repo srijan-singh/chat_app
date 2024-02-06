@@ -3,8 +3,12 @@ package weekend.project.chat_app.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.NonUniqueResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.entity.ChatUserRelation;
@@ -34,18 +38,31 @@ public class ChatUserRelationServiceImpl implements ChatUserRelationService {
         Users user = userRepo.findByUserID(chatRoomUserTemplate.getUserID());
         ChatRooms chatRoom = chatRoomRepo.findById(chatRoomUserTemplate.getChatID()).orElse(null);
 
+        // If user or chat room doesn't exist
         if (user == null || chatRoom == null) {
             return false;
         }
 
-        ChatUserRelation chatUserRelation = new ChatUserRelation();
-        chatUserRelation.setUser(user);
-        chatUserRelation.setChatRoom(chatRoom);
-        chatUserRelation.setTimestamp(new Date());
+        // Checking whether user already exist in chat room
+        ChatUserRelation existingChatUserRelation = chatUserRelationRepo.findByChatRoomAndUser(chatRoom, user);
+        
+        // If there's no relation
+        if(existingChatUserRelation == null){
+            
+            // Creating a new relation
+            ChatUserRelation chatUserRelation = new ChatUserRelation();
+            chatUserRelation.setUser(user);
+            chatUserRelation.setChatRoom(chatRoom);
+            chatUserRelation.setTimestamp(new Date());
 
-        chatUserRelationRepo.save(chatUserRelation);
+            // Adding the user in chat room
+            chatUserRelationRepo.save(chatUserRelation);
 
-        return true;
+            return true;
+        }
+
+        // User is already in chat room
+        return false;
     }
 
     @Override
