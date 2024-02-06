@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.service.ChatRoomService;
+import weekend.project.chat_app.template.ChatRoomTemplate;
 
 @RestController
 public class ChatRoomController {
@@ -24,12 +25,12 @@ public class ChatRoomController {
     }
 
     @GetMapping(value = "chat_room/find/{chatID}", produces = "application/json")
-    public ChatRooms finChatRoomsByID(@PathVariable String chatID){
+    public ChatRoomTemplate finChatRoomsByID(@PathVariable String chatID){
         return chatRoomService.getChatRoomByID(chatID);
     }
 
     @GetMapping(value = "chat_room/showAll", produces = "application/json")
-    public List<ChatRooms> showAllChatRooms(){
+    public List<ChatRoomTemplate> showAllChatRooms(){
         return chatRoomService.showAll();
     }
 }

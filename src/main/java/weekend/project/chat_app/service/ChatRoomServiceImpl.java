@@ -1,5 +1,6 @@
 package weekend.project.chat_app.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import weekend.project.chat_app.entity.ChatRooms;
 import weekend.project.chat_app.repo.ChatRoomRepo;
+import weekend.project.chat_app.template.ChatRoomTemplate;
 
 @Repository
 public class ChatRoomServiceImpl implements ChatRoomService {
@@ -34,13 +36,28 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     @Override
-    public ChatRooms getChatRoomByID(String chatID) {
-        return chatRoomRepo.findById(chatID).orElse(null);
+    public ChatRoomTemplate getChatRoomByID(String chatID) {
+        ChatRooms chatRoom = chatRoomRepo.findById(chatID).orElse(null);
+
+        if(chatRoom == null){
+            return null;
+        }
+
+        ChatRoomTemplate chatRoomTemplate = new ChatRoomTemplate(chatRoom.getChatID(), chatRoom.getTimestamp());
+
+        return chatRoomTemplate;
     }
 
     @Override
-    public List<ChatRooms> showAll() {
-        return chatRoomRepo.findAll();
+    public List<ChatRoomTemplate> showAll() {
+
+        List<ChatRoomTemplate> chatRooms = new ArrayList<>();
+
+        for(ChatRooms chatRoom : chatRoomRepo.findAll()){
+            chatRooms.add(new ChatRoomTemplate(chatRoom.getChatID(), chatRoom.getTimestamp()));
+        }
+
+        return chatRooms;
     }
 
 }

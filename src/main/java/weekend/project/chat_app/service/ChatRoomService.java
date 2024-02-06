@@ -2,7 +2,7 @@ package weekend.project.chat_app.service;
 
 import java.util.List;
 
-import weekend.project.chat_app.entity.ChatRooms;
+import weekend.project.chat_app.template.ChatRoomTemplate;
 
 public interface ChatRoomService {
 
@@ -10,8 +10,8 @@ public interface ChatRoomService {
     boolean createChatRoom(String chatID);
 
     // Find Chat Room by ID
-    ChatRooms getChatRoomByID(String chatID);
+    ChatRoomTemplate getChatRoomByID(String chatID);
 
     // ShowAll Chat Rooms
-    List<ChatRooms> showAll();
+    List<ChatRoomTemplate> showAll();
 }
