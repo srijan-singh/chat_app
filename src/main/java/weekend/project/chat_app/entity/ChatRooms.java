@@ -21,6 +21,9 @@ public class ChatRooms {
     @OneToMany(mappedBy = "chatRoom")
     private Set<ChatUserRelation> chatUserRelationship;
 
+    @OneToMany(mappedBy = "chatRoom")
+    private Set<Message> messages;
+
     public String getChatID() {
         return chatID;
     }
@@ -43,6 +46,14 @@ public class ChatRooms {
 
     public void setChatUserRelationship(Set<ChatUserRelation> chatUserRelationship) {
         this.chatUserRelationship = chatUserRelationship;
+    }
+    
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 
 }

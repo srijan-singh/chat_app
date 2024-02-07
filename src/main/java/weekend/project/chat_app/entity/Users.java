@@ -17,6 +17,9 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Set<ChatUserRelation> chatUserRelation;
 
+    @OneToMany(mappedBy = "sender") // One user can send multiple messages
+    private Set<Message> messages;
+
     public String getUserID() {
         return userID;
     }
@@ -41,6 +44,12 @@ public class Users {
         this.chatUserRelation = chatUserRelation;
     }
 
-    
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
 
 }
