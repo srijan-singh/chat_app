@@ -55,16 +55,14 @@
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 				<version>2.2.1</version>
-				<configuration>
-					<!-- ... -->
-					<!-- Include only the desired properties -->
+				<!--Fine grain: Include only the desired properties-->
+				<!-- <configuration>
 					<includeOnlyProperties>
 						<includeOnlyProperty>^git.branch$</includeOnlyProperty>
 						<includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
 						<includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
 					</includeOnlyProperties>
-				</configuration>
-
+				</configuration> -->
 			</plugin>
 		</plugins>
 	</build>
