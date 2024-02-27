@@ -27,11 +27,24 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
+gitProperties {
+    // Customize file name (could be a file name or a relative file path below gitPropertiesResourceDir dir)
+    gitPropertiesName = "git.properties"
+
+    // Customize directory using gitPropertiesResourceDir config
+    // The directory in this config key is also added as a classpath entry
+    // (so the git.properties file will be included in the final JAR file)
+    gitPropertiesResourceDir = project.file("${project.rootDir}/git")
+
+}
+processResources {
+    inputs.files(generateGitProperties)
+}
+processResources.dependsOn(generateGitProperties)
+processResources.mustRunAfter(generateGitProperties)
+
+
 bootJar {
     enabled = true
-    // fine grain
-//     gitProperties {
-//     keys = ['git.branch','git.commit.id','git.commit.time']
-// }
 }
 
